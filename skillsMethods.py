@@ -9,8 +9,25 @@ def sort(skills):
         print("Skills:")
         print(file.read())
 
+# The findSkill function takes a list of skills and asks the user for a skill to find.
+def findSkill(skills):
+    # Ask the user for a skill to find
+    skill = input("Enter a skill to find: ").lower()
+    found = False
+
+    # Check if the skill is in the list
+    for i in range(len(skills)):
+        if skill == skills[i][0]:
+            print(f"Skill found: {skills[i][0]}: {skills[i][1]}")
+            found = True
+            break
+
+    if not found:
+        print("Skill not found")
+
+# The decrementSkill function takes a list of skills and asks the user for a skill to decrement.
 def decrementSkill(skills):
-    # Ask the user for a skill to delete
+    # Ask the user for a skill to decrement
     skill = input("Enter a skill to delete: ").lower()
     found = False
 
@@ -37,6 +54,7 @@ def decrementSkill(skills):
             print("Skills:")
             print(file.read())
 
+# The deleteSkill function takes a list of skills and asks the user for a skill to delete.
 def deleteSkill(skills):
     # Ask the user for a skill to delete
     skill = input("Enter a skill to delete: ").lower()
@@ -59,3 +77,5 @@ def deleteSkill(skills):
         with open('skills.txt', 'r') as file:
             print("Skills:")
             print(file.read())
+
+    

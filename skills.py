@@ -49,3 +49,4 @@ while True:
 # skillsMethods.decrementSkill(skills)
 # skillsMethods.sort(skills)
 # skillsMethods.deleteSkill(skills)
+# skillsMethods.findSkill(skills)
