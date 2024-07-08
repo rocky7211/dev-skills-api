@@ -15,7 +15,7 @@ else:
 
 while True:
     # Ask the user for a skill
-    skill = input("Enter a skill: ")
+    skill = input("Enter a skill: ").lower() 
     found = False
 
     # Check if the skill is in the list and update the count

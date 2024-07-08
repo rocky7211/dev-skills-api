@@ -11,18 +11,17 @@ This Python script is designed to maintain a list of developer skills along with
 
 The skills and their counts are stored in the `skills.txt` file in the format `skill:count`, one skill per line.
 
-Requirements:
+#### Requirements:
 - Python 3.x
 - No external libraries are required.
 
-Usage:
+#### Usage:
 1. Ensure Python 3.x is installed on your system.
 2. Place the script in a directory of your choice.
 3. Run the script using the command `python skillsList.py`.
 4. Follow the on-screen prompts to enter skills. The script will update the counts and save them to `skills.txt`.
 5. To exit the script, use a keyboard interrupt (e.g., Ctrl+C in most terminals).
 
-Note:
-- This script does not handle duplicate skill entries in a case-insensitive manner. For example, 'Python' and 'python' would be considered two separate skills.
+#### Note:
+- This script handles duplicate skill entries in a case-insensitive manner by converting all entered skills to lowercase before processing.
 - The script uses a simple text file for storage, making it easy to view or edit the list of skills outside the script.
-"""
