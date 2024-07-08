@@ -5,10 +5,10 @@ This Python script is designed to maintain a list of developer skills along with
 1. Checks if a file named `skills.txt` exists in the current directory. If it does, it reads the file and loads the skills and their counts into a list. If the file does not exist, it creates an empty `skills.txt` file and initializes an empty list for storing skills.
 
 2. Enters a loop that continuously prompts the user to enter a skill. For each entered skill, the script performs the following actions:
-    a. Searches the list of skills for the entered skill. If the skill is found, it increments the count associated with that skill.
-    b. If the skill is not found in the list, it adds the skill with a count of 1.
-    c. Updates the `skills.txt` file with the current list of skills and their counts.
-    d. Calls the `skillsSort` module to sort the skills based on their counts and, for skills with the same count, alphabetically.
+    - Searches the list of skills for the entered skill. If the skill is found, it increments the count associated with that skill.
+    - If the skill is not found in the list, it adds the skill with a count of 1.
+    - Updates the `skills.txt` file with the current list of skills and their counts.
+    - Calls the `skillsSort` module to sort the skills based on their counts and, for skills with the same count, alphabetically.
 
 The skills and their counts are stored in the `skills.txt` file in the format `skill:count`, one skill per line. After each update, the `skillsSort` module ensures that the list is sorted first by count (in descending order) and then alphabetically for skills with the same count.
 
