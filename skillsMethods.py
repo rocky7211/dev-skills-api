@@ -78,4 +78,6 @@ def deleteSkill(skills):
             print("Skills:")
             print(file.read())
 
-    
+def exit():
+    print("Exiting the program")
+    quit()

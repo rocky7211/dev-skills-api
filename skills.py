@@ -50,3 +50,4 @@ while True:
 # skillsMethods.sort(skills)
 # skillsMethods.deleteSkill(skills)
 # skillsMethods.findSkill(skills)
+# skillsMethods.exit()
