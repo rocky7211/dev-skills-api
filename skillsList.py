@@ -44,6 +44,7 @@ while True:
     if choice.lower() != "y":
         break
     
+# Sort the skills by count and print the sorted list
 def sort():
     skills.sort(key=lambda x: x[1], reverse=True)
     with open('skills.txt', 'w') as file:
