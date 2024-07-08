@@ -1,5 +1,5 @@
 import os
-import skillsSort
+import skillsMethods
 
 # A simple script to store and display a list of developer skills
 
@@ -46,4 +46,6 @@ while True:
         break
     
 # Sort the skills by count in descending order once the user is done    
-skillsSort.sort(skills)
+# skillsMethods.decrementSkill(skills)
+# skillsMethods.sort(skills)
+# skillsMethods.deleteSkill(skills)
