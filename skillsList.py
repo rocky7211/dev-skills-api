@@ -1,4 +1,5 @@
 import os
+import skillsSort
 
 # A simple script to store and display a list of developer skills
 
@@ -44,12 +45,5 @@ while True:
     if choice.lower() != "y":
         break
     
-# Sort the skills by count and print the sorted list
-def sort():
-    skills.sort(key=lambda x: x[1], reverse=True)
-    with open('skills.txt', 'w') as file:
-        for skill, count in skills:
-            file.write(f"{skill}:{count}\n")
-    with open('skills.txt', 'r') as file:
-        print("Skills:")
-        print(file.read())
+# Sort the skills by count in descending order once the user is done    
+skillsSort.sort(skills)
