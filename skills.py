@@ -2,38 +2,36 @@ import skillsMethods
 
 # A simple script to store and display a list of developer skills
 
-# Check if `skills.txt` exists and returns the skills list
-skills = skillsMethods.createSkillsFile()
-
 def addSkill(skills):
-    while True:
-        # Ask the user for a skill
-        skill = input("Enter a skill: ").lower() 
-        found = False
+    skills_dict = {skill[0]: skill[1] for skill in skills}  # Convert list to dictionary for efficient lookup
+    try:
+        while True:
+            skill = input("Enter a skill: ").lower()
+            if skill in skills_dict:
+                skills_dict[skill] += 1
+            else:
+                skills_dict[skill] = 1
 
-        # Check if the skill is in the list and update the count
-        for i in range(len(skills)):
-            if skill == skills[i][0]:
-                skills[i][1] += 1
-                found = True
+            repeat = input("Would you like to add another skill? (y/n): ")
+            if repeat.lower() != "y":
                 break
 
-        if not found:
-            # Add the skill to the list with a count of 1
-            skills.append([skill, 1])
+        # Convert dictionary back to list format and sort it
+        updated_skills = sorted([[skill, count] for skill, count in skills_dict.items()], key=lambda x: x[0])
 
-        # Write the updated list to `skills.txt`
+        # Write the updated list to `skills.txt` once
         with open('skills.txt', 'w') as file:
-            for skill, count in skills:
+            for skill, count in updated_skills:
                 file.write(f"{skill}:{count}\n")
 
-        # Ask the user if they want to add another skill
-        repeat = input("Would you like to add another skill? (y/n): ")
-        if repeat.lower() == "y":
-            addSkill(skills)
-        else:
-            skillsMethods.menu(skillsMethods.sort(skills))
+        skillsMethods.menu(skillsMethods.sort(updated_skills))  # Update the menu with sorted skills
+        return updated_skills  # Return the updated skills list for further use
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return skills  # Return the original skills list in case of an error
 
-# Checks to see if the user wants to add a skill
+# Assuming skillsMethods.createSkillsFile() returns a list of skills
+skills = skillsMethods.createSkillsFile()
+
 if skillsMethods.menu(skills):
-    addSkill(skills)
+    updated_skills = addSkill(skills)
