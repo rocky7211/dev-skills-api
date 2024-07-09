@@ -22,15 +22,23 @@ The skills and their counts are stored in the `skills.txt` file in the format `s
 - Python 3.x
 - No external libraries are required.
 
+#### Recent Updates:
+- **Test Cases Added**: Introduced test cases in `test_skillsMethods.py` to ensure the accuracy and reliability of the script's functionalities. These tests cover all the main operations such as adding, removing, decrementing, and searching for skills.
+- **Enhanced Sorting Feature**: Improved the `skillsSort` module to offer more flexible sorting options, allowing users to sort skills not only by count but also alphabetically in ascending or descending order.
+- **Error Handling**: Improved error handling across the script to provide clearer messages and prevent the script from exiting unexpectedly during runtime.
+
 #### Usage:
 1. Ensure Python 3.x is installed on your system.
 2. Place the script and the `skillsSort` module in a directory of your choice.
 3. Run the script using the command `python skillsList.py`.
 4. Follow the on-screen prompts to manage skills. The script allows adding, removing, displaying, and searching for skills. It will update the counts, save them to `skills.txt`, and sort the list using the `skillsSort` module.
-5. To exit the script, use a keyboard interrupt (e.g., Ctrl+C in most terminals).
+5. To run test cases type `python3 -m unittest`.
+6. To exit the script, follow the prompts or use a keyboard interrupt (e.g., Ctrl+C in most terminals).
 
 #### Note:
 - This script handles duplicate skill entries in a case-insensitive manner by converting all entered skills to lowercase before processing.
 - The `skillsSort` module is used to sort the skills list each time it is updated, ensuring the list is always in the correct order.
 - The script uses a simple text file for storage, making it easy to view or edit the list of skills outside the script.
 - Enhanced error handling has been implemented for file operations to ensure robustness.
+- `test_skills.py` has one test case commented out, due to an error with the test case. This will be fixed in future versions.
+- `test_skillsMethods.py` is a spare test script, that tests individual functions within `skillsMethods.py`.

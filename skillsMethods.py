@@ -29,10 +29,21 @@ def menu(skills):
 
 # The readFile function reads the skills from `skills.txt` and returns a list of skills.
 def readFile():
-    # Read the file and store the skills in a list
+    skills = []
     with open('skills.txt', 'r') as file:
-        skills = [line.split(':') for line in file.read().splitlines()]
-        skills = [[skill, int(count)] for skill, count in skills]
+        for line in file.read().splitlines():
+            parts = line.split(':')
+            if len(parts) == 2:
+                skill, count = parts
+                try:
+                    skills.append([skill, int(count)])
+                except ValueError:
+                    # Handle or log the error, e.g., print a warning
+                    print(f"Warning: Skipping invalid count for skill '{skill}': {count}")
+            else:
+                # Handle lines that do not conform to the expected format
+                print(f"Warning: Skipping malformed line: {line}")
+    print(skills)
     return skills
 
 # The updateSkills function takes a list of skills and writes it to `skills.txt` then updates the skills list.
@@ -50,7 +61,8 @@ def createSkillsFile():
         skills = readFile()
     else:
         # Create the file and initialize an empty list
-        open('skills.txt', 'w').close()
+        with open('skills.txt', 'w') as file:
+            file.write('')
         skills = []
     return skills
 
