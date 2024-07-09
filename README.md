@@ -1,16 +1,22 @@
 # Developer Skills Tracker
 
-This Python script is designed to maintain a list of developer skills along with their occurrence counts. It performs the following operations:
+This Python script is designed to maintain and manage a list of developer skills along with their occurrence counts. It supports adding, removing, displaying, and searching for skills. The script performs the following operations:
 
 1. Checks if a file named `skills.txt` exists in the current directory. If it does, it reads the file and loads the skills and their counts into a list. If the file does not exist, it creates an empty `skills.txt` file and initializes an empty list for storing skills.
 
-2. Enters a loop that continuously prompts the user to enter a skill. For each entered skill, the script performs the following actions:
-    - Searches the list of skills for the entered skill. If the skill is found, it increments the count associated with that skill.
-    - If the skill is not found in the list, it adds the skill with a count of 1.
-    - Updates the `skills.txt` file with the current list of skills and their counts.
-    - Calls the `skillsSort` module to sort the skills based on their counts and, for skills with the same count, alphabetically.
+2. Enters a menu that has options for the user to select such as adding a skill, removing a skill, decrementing a skill, displaying all skills, or searching for a specific skill. For each action, the script performs the corresponding operations:
+    - **Add a Skill**: Searches the list for the entered skill. If found, increments the count; otherwise, adds the skill with a count of 1.
+    - **Search for a Skill**: Searches for and displays the count of the specified skill.
+    - **Decrement a Skill**: decrements the skils count by 1 and removes it if `count = 0`.
+    - **Remove a Skill**: Removes the specified skill from the list if it exists.
+    - **Display All Skills**: Shows all skills and their counts.
+    - **Exit**: Displays a exit message and quits the program.
 
-The skills and their counts are stored in the `skills.txt` file in the format `skill:count`, one skill per line. After each update, the `skillsSort` module ensures that the list is sorted first by count (in descending order) and then alphabetically for skills with the same count.
+3. Updates the `skills.txt` file with the current list of skills and their counts after any modification.
+
+4. Calls the `skillsSort` module to sort the skills. The sorting can be done either in descending order by count and then alphabetically for skills with the same count, or in ascending order based on a new method.
+
+The skills and their counts are stored in the `skills.txt` file in the format `skill:count`, one skill per line. The `skillsSort` module ensures that the list is sorted appropriately after each update.
 
 #### Requirements:
 - Python 3.x
@@ -20,10 +26,11 @@ The skills and their counts are stored in the `skills.txt` file in the format `s
 1. Ensure Python 3.x is installed on your system.
 2. Place the script and the `skillsSort` module in a directory of your choice.
 3. Run the script using the command `python skillsList.py`.
-4. Follow the on-screen prompts to enter skills. The script will update the counts, save them to `skills.txt`, and then sort the list using the `skillsSort` module.
+4. Follow the on-screen prompts to manage skills. The script allows adding, removing, displaying, and searching for skills. It will update the counts, save them to `skills.txt`, and sort the list using the `skillsSort` module.
 5. To exit the script, use a keyboard interrupt (e.g., Ctrl+C in most terminals).
 
 #### Note:
 - This script handles duplicate skill entries in a case-insensitive manner by converting all entered skills to lowercase before processing.
 - The `skillsSort` module is used to sort the skills list each time it is updated, ensuring the list is always in the correct order.
 - The script uses a simple text file for storage, making it easy to view or edit the list of skills outside the script.
+- Enhanced error handling has been implemented for file operations to ensure robustness.
