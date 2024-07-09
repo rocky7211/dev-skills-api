@@ -27,18 +27,13 @@ def addSkill(skills):
             for skill, count in skills:
                 file.write(f"{skill}:{count}\n")
 
-        # Read the file and print the skills
-        with open('skills.txt', 'r') as file:
-            print("Skills:")
-            print(file.read())
-
         # Ask the user if they want to add another skill
         repeat = input("Would you like to add another skill? (y/n): ")
         if repeat.lower() == "y":
             addSkill(skills)
         else:
-            skillsMethods.menu(skills)
+            skillsMethods.menu(skillsMethods.sort(skills))
 
 # Checks to see if the user wants to add a skill
-if skillsMethods.menu(skills) == 1:
+if skillsMethods.menu(skills):
     addSkill(skills)

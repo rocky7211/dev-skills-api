@@ -4,21 +4,21 @@ import os
 def menu(skills):
     print("\nWelcome! Type the number of the option you would like to choose:")
     print("1. Add a skill")
-    print("2. Decrement a skill")
-    print("3. Delete a skill")
-    print("4. Find a skill")
+    print("2. Find a skill")
+    print("3. Decrement a skill")
+    print("4. Delete a skill")
     print("5. View skills")
     print("6. Exit")
     user_input = input("Enter a number: ")
 
     if user_input == "1":
-        return 1
+        return skills
     elif user_input == "2":
-        decrementSkill(skills)
-    elif user_input == "3":
-        deleteSkill(skills)
-    elif user_input == "4":
         findSkill(skills)
+    elif user_input == "3":
+        decrementSkill(skills)
+    elif user_input == "4":
+        deleteSkill(skills)
     elif user_input == "5":
         viewSkills(skills)
     elif user_input == "6":
@@ -27,17 +27,37 @@ def menu(skills):
         print("Invalid input. Please enter a number between 1 and 5.")
         return menu(skills)
 
-# The sort function takes a list of skills and sorts it by count in descending order.
-def sort(skills):
-    skills.sort(key=lambda x: (x[1], x[0]), reverse=True)
-    with open('skills.txt', 'w') as file:
-        for skill, count in skills:
-            file.write(f"{skill}:{count}\n")
+# The readFile function reads the skills from `skills.txt` and returns a list of skills.
+def readFile():
+    # Read the file and store the skills in a list
     with open('skills.txt', 'r') as file:
         skills = [line.split(':') for line in file.read().splitlines()]
         skills = [[skill, int(count)] for skill, count in skills]
-        print("Skills:")
-        print(file.read())
+    return skills
+
+# The updateSkills function takes a list of skills and writes it to `skills.txt` then updates the skills list.
+def updateFile(skills):
+    # Write the updated list to `skills.txt`
+    with open('skills.txt', 'w') as file:
+        for skill, count in skills:
+            file.write(f"{skill}:{count}\n")
+    return readFile()
+
+# The createSkillsFile function checks if `skills.txt` exists and returns the skills list.
+def createSkillsFile():
+    # Check if `skills.txt` exists
+    if os.path.exists('skills.txt'):
+        skills = readFile()
+    else:
+        # Create the file and initialize an empty list
+        open('skills.txt', 'w').close()
+        skills = []
+    return skills
+
+# The sort function takes a list of skills and sorts it by count in descending order.
+def sort(skills):
+    skills.sort(key=lambda x: (x[1], x[0]), reverse=True)
+    return updateFile(skills)
 
 # The findSkill function takes a list of skills and asks the user for a skill to find.
 def findSkill(skills):
@@ -82,21 +102,13 @@ def decrementSkill(skills):
     if not found:
         print("Skill not found")
     else:
-        # Write the updated list to `skills.txt`
-        with open('skills.txt', 'w') as file:
-            for skill, count in skills:
-                file.write(f"{skill}:{count}\n")
-        with open('skills.txt', 'r') as file:
-            skills = [line.split(':') for line in file.read().splitlines()]
-            skills = [[skill, int(count)] for skill, count in skills]
-            print("Skills:")
-            print(file.read())
+        updateFile(skills)
 
     repeat = input("Would you like to decrement another skill? (y/n): ")
     if repeat.lower() == "y":
         decrementSkill(skills)
     else:
-        menu(skills)
+        menu(sort(skills))
 
 # The deleteSkill function takes a list of skills and asks the user for a skill to delete.
 def deleteSkill(skills):
@@ -114,34 +126,13 @@ def deleteSkill(skills):
     if not found:
         print("Skill not found")
     else:
-        # Write the updated list to `skills.txt`
-        with open('skills.txt', 'w') as file:
-            for skill, count in skills:
-                file.write(f"{skill}:{count}\n")
-        with open('skills.txt', 'r') as file:
-            skills = [line.split(':') for line in file.read().splitlines()]
-            skills = [[skill, int(count)] for skill, count in skills]
-            print("Skills:")
-            print(file.read())
+        updateFile(skills)
     
     repeat = input("Would you like to delete another skill? (y/n): ")
     if repeat.lower() == "y":
         deleteSkill(skills)
     else:
         menu(skills)
-
-def createSkillsFile():
-    # Check if `skills.txt` exists
-    if os.path.exists('skills.txt'):
-        # Read the file and store the skills in a list
-        with open('skills.txt', 'r') as file:
-            skills = [line.split(':') for line in file.read().splitlines()]
-            skills = [[skill, int(count)] for skill, count in skills]
-    else:
-        # Create the file and initialize an empty list
-        open('skills.txt', 'w').close()
-        skills = []
-    return skills
 
 def viewSkills(skills):
     # Read the file and print the skills
@@ -154,3 +145,4 @@ def viewSkills(skills):
 def exit():
     print("Exiting the program")
     quit()
+
