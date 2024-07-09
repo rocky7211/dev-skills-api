@@ -1,4 +1,4 @@
-"""
+# Description: This file contains tests for the functions in skillsMethods.py
 import os
 from skillsMethods import createSkillsFile, readFile
 # Function to simulate deletion of skills.txt for testing
@@ -30,4 +30,3 @@ skills = readFile()
 expected_skills = [['Python', 5], ['JavaScript', 3]]
 assert skills == expected_skills, f"readFile did not return the expected list. Returned: {skills}"
 print("readFile test passed.")
-"""
