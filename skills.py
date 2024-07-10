@@ -1,4 +1,6 @@
-import skillsMethods
+import app.services.skills_service as skillsService
+from app.infrastructure.db_repository import db_repository
+from app.domain.skill import Skill
 
 # A simple script to store and display a list of developer skills
 
@@ -24,14 +26,14 @@ def addSkill(skills):
             for skill, count in updated_skills:
                 file.write(f"{skill}:{count}\n")
 
-        skillsMethods.menu(skillsMethods.sort(updated_skills))  # Update the menu with sorted skills
+        skillsService.menu(skillsService.sort(updated_skills))  # Update the menu with sorted skills
         return updated_skills  # Return the updated skills list for further use
     except Exception as e:
         print(f"An error occurred: {e}")
         return skills  # Return the original skills list in case of an error
 
 # Assuming skillsMethods.createSkillsFile() returns a list of skills
-skills = skillsMethods.createSkillsFile()
+skills = skillsService.createSkillsFile()
 
-if skillsMethods.menu(skills):
+if skillsService.menu(skills):
     updated_skills = addSkill(skills)
