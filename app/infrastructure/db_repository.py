@@ -43,7 +43,7 @@ class SQLiteRepository:
         conn.close()
         return skills
 
-    def remove_skill(self, user_id: int, skill: Skill) -> None:
+    def remove_skill(self, skill: Skill) -> None:
         conn = sqlite3.connect(self.db_path)
         c = conn.cursor()
         c.execute('''
@@ -97,4 +97,8 @@ class SQLiteRepository:
             DROP DATABASE IF EXISTS skills_database
         ''')
         conn.commit()
+        conn.close()
+    
+    def close_connection(self) -> None:
+        conn = sqlite3.connect(self.db_path)
         conn.close()

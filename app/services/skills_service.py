@@ -27,13 +27,24 @@ class SkillsService:
         else:
             self.menu()
     
-    def remove_skill(self, user_id: int, skill_name: str) -> None:
-        skill = self.repository.get_skill(user_id, skill_name)
+    def remove_skill(self) -> None:
+        skill_name = input("Enter a skill to delete: ").lower()
+        if skill_name == "":    
+            print("Skill name cannot be empty")
+            return self.remove_skill()
+        skill = self.repository.get_skill(skill_name)
         if skill:
-            self.repository.remove_skill(user_id, skill)
+            self.repository.remove_skill(skill)
+            print(f"Skill removed: {skill}")
         else:
             print("Skill not found")
-    
+
+        repeat = input("Would you like to delete another skill? (y/n): ")
+        if repeat.lower() == "y":
+            self.remove_skill()
+        else:
+            self.menu()
+
     def decrement_skill(self) -> None:
         skill_name = input("Enter a skill to decrement: ").lower()
         if skill_name == "":
@@ -79,7 +90,14 @@ class SkillsService:
         print("All skills:")
         for skill in skills:
             print(skill)
+        self.menu()
     
+    def quit(self) -> None:
+        print("Closing connection...")
+        self.repository.close_connection()
+        print("Goodbye!")
+        exit()
+
     # A menu to add, decrement, delete, find, and exit
     def menu(self):
         print("\nWelcome! Type the number of the option you would like to choose:")
@@ -102,7 +120,7 @@ class SkillsService:
         elif user_input == "5":
             self.get_all_skills()
         elif user_input == "6":
-            exit()
+            self.quit()
         else:
             print("Invalid input. Please enter a number between 1 and 6.")
             return self.menu()
