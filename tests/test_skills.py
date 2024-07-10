@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, mock_open
-from skillsMethods import menu, createSkillsFile, readFile, updateFile
+from app.services.skills_service import menu, createSkillsFile, readFile, updateFile
 
 class TestSkillsMethods(unittest.TestCase):
     # commented out as there is a issue with the test

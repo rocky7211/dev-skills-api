@@ -1,6 +1,6 @@
 # Description: This file contains tests for the functions in skillsMethods.py
 import os
-from skillsMethods import createSkillsFile, readFile
+from app.services.skills_service import createSkillsFile, readFile
 # Function to simulate deletion of skills.txt for testing
 def delete_skills_file():
     if os.path.exists('skills.txt'):
