@@ -50,10 +50,16 @@ class SkillsService:
         if skill_name == "":
             print("Skill name cannot be empty")
             return self.decrement_skill()
+        
         skill = self.repository.get_skill(skill_name)
+
         if skill:
-            self.repository.decrement_skill(skill)
-            print(f"Skill decremented: {skill}")
+            if skill.get_count() > 1:
+                self.repository.decrement_skill(skill)
+                print(f"Skill decremented: {skill}")
+            else:
+                print("Skill count is 0, deleting skill instead")
+                self.repository.remove_skill(skill)
         else:
             print("Skill not found")
 
