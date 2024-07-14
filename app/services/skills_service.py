@@ -63,10 +63,13 @@ class SkillsService:
         else:
             self.menu()
     
+    """
+    ===UNNECESSARY===
     def view_skills(self, user_id: int) -> None:
         skills = self.repository.get_skills(user_id)
         for skill in skills:
             print(f"{skill.name}: {skill.count}")
+    """
     
     def find_skill(self) -> None:
         user_input = input("Enter a skill to find: ").lower()
