@@ -1,40 +1,39 @@
-from flask import Flask, jsonify, request
-from infrastructure.db_repository import SQLiteRepository
-import services.skills_service as service
+from flask import jsonify, current_app
 
-app = Flask(__name__)
-repository = SQLiteRepository()
-skills_service = service.SkillsService(repository)
+# Function to configure the routes
+def configure_routes(app):
 
-@app.route('api/skills', methods=['GET'])
-def get_all_skills():
-    skills = skills_service.get_all_skills()
-    return jsonify(skills)
+    # New route to get all skills
+    @app.route('/api/skills', methods=['GET'])
+    def get_all_skills():
+        skills_service = current_app.config['skills_service']
+        skills = skills_service.get_all_skills()
+        return jsonify(skills)
 
-@app.route('api/skills', methods=['POST'])
-def add_skill():
-    skill = request.json
-    skills_service.add_skill(skill)
-    return '', 201
+    # New route to add a skill
+    @app.route('/api/skills/<string:skill_name>', methods=['POST'])
+    def add_skill(skill_name):
+        skills_service = current_app.config['skills_service']
+        skills_service.add_skill(skill_name)
+        return '', 201
 
-@app.route('api/skills', methods=['DELETE'])
-def remove_skill():
-    skill = request.json
-    skills_service.remove_skill(skill)
-    return '', 204
+    # New route to remove a skill
+    @app.route('/api/skills/<string:skill_name>', methods=['DELETE'])
+    def remove_skill(skill_name):
+        skills_service = current_app.config['skills_service']
+        skills_service.remove_skill(skill_name)
+        return '', 204
 
-@app.route('api/skills', methods=['PUT'])
-def decrement_skill():
-    skill = request.json
-    skills_service.decrement_skill(skill)
-    return '', 204
+    # New route to decrement a skill
+    @app.route('/api/skills/<string:skill_name>', methods=['PUT'])
+    def decrement_skill(skill_name):
+        skills_service = current_app.config['skills_service']
+        skills_service.decrement_skill(skill_name)
+        return '', 204
 
-@app.route('api/skills', methods=['GET'])
-def get_skill():
-    skill = request.json
-    skill = skills_service.find_skill(skill)
-    return jsonify(skill)
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
+    # New route to get a single skill
+    @app.route('/api/skills/<string:skill_name>', methods=['GET'])
+    def get_skill(skill_name):
+        skills_service = current_app.config['skills_service']
+        skill = skills_service.find_skill(skill_name)
+        return jsonify(skill)
