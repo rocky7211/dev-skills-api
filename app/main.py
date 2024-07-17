@@ -2,17 +2,20 @@
 Description: This file is the entry point of the application.
 It creates an instance of the SkillsService class and calls the menu method to start the application.
 """
-import services.skills_service as service
-from services.menu_handler import MenuHandler
 import threading
+import services.skills_service as service
 from api.routes import configure_routes
+from services.menu_handler import MenuHandler
 from infrastructure.db_repository import SQLiteRepository
 from flask import Flask
+from flask_cors import CORS
 
 # Create a Flask app
 app = Flask(__name__)
+
 # Add the SkillsService instance to the app's configuration
 configure_routes(app)
+CORS(app)
 
 # Method to run the menu
 def run_menu():
@@ -29,4 +32,4 @@ if __name__ == "__main__":
     menu_thread.start()
 
     # Start the Flask app
-    #app.run(debug=True)
+    app.run(debug=True)

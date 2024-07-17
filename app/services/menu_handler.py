@@ -19,19 +19,19 @@ class MenuHandler:
 
         user_input = input("Enter a number: ")
         if user_input == "1":
-            self.add_skill_input()
+            self.add_skill_handler()
             self.menu()
         elif user_input == "2":
-            self.find_skill_input()
+            self.find_skill_handler()
             self.menu()
         elif user_input == "3":
-            self.decrement_skill_input()
+            self.decrement_skill_handler()
             self.menu()
         elif user_input == "4":
-            self.remove_skill_input()
+            self.remove_skill_handler()
             self.menu()
         elif user_input == "5":
-            self.skill_service.get_all_skills()
+            self.get_skills_handler()
             self.menu()
         elif user_input == "6":
             self.skill_service.quit()
@@ -40,45 +40,50 @@ class MenuHandler:
             self.menu()
         
     # Method to repeat the input
-    def repeat_input(self, method: callable, action: str) -> None:
-        repeat = input(f"Would yoxxu like to {action} another skill? (y/n): ").lower()
+    def repeat_input_handler(self, method: callable, action: str) -> None:
+        repeat = input(f"Would you like to {action} another skill? (y/n): ").lower()
         if repeat == "y":
             method()
 
     # Method to get the skill name from the user
-    def user_skill_input(self) -> str:
+    def user_input_handler(self) -> str:
         skill_name = input("Enter the skill name: ").lower()
         if skill_name == "":
             print("Skill name cannot be empty")
-            return self.user_skill_input()
+            return self.user_input_handler()
         return skill_name
 
     # Method to handle the add skill input
-    def add_skill_input(self) -> None:
-        skill_name = self.user_skill_input()
+    def add_skill_handler(self) -> None:
+        skill_name = self.user_input_handler()
         self.skill_service.add_skill(skill_name)
-        self.repeat_input(self.add_skill_input, "add")
+        self.repeat_input_handler(self.add_skill_handler, "add")
 
     # Method to handle the find skill input
-    def find_skill_input(self) -> None:
-        skill_name = self.user_skill_input()
+    def find_skill_handler(self) -> None:
+        skill_name = self.user_input_handler()
         skill = self.skill_service.find_skill(skill_name)
         if skill:
             print(skill)
         else:
             print("Skill not found")
-        self.repeat_input(self.find_skill_input, "find")
+        self.repeat_input_handler(self.find_skill_handler, "find")
 
     # Method to handle the decrement skill input
-    def decrement_skill_input(self) -> None:
-        skill_name = self.user_skill_input()
+    def decrement_skill_handler(self) -> None:
+        skill_name = self.user_input_handler()
         result = self.skill_service.decrement_skill(skill_name)
         print(result)
-        self.repeat_input(self.decrement_skill_input, "decrement")
+        self.repeat_input_handler(self.decrement_skill_handler, "decrement")
 
     # Method to handle the remove skill input
-    def remove_skill_input(self) -> None:
-        skill_name = self.user_skill_input()
+    def remove_skill_handler(self) -> None:
+        skill_name = self.user_input_handler()
         result = self.skill_service.remove_skill(skill_name)
         print(result)
-        self.repeat_input(self.remove_skill_input, "remove")
+        self.repeat_input_handler(self.remove_skill_handler, "remove")
+
+    def get_skills_handler(self) -> None:
+        skills = self.skill_service.get_all_skills()
+        for skill in skills:
+            print(skill)

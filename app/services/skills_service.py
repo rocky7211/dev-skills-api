@@ -1,5 +1,6 @@
 from infrastructure.db_repository import SQLiteRepository
 from domain.skill import Skill
+from typing import List
 
 # Class to handle the skills service
 class SkillsService:
@@ -9,13 +10,18 @@ class SkillsService:
         self.repository = repository
 
     # Method to display the menu
-    def add_skill(self, skill_name: str) -> None:
+    def add_skill(self, skill_name: str) -> bool:
+        if skill_name == "":
+            return False
+        
         skill = self.repository.get_skill(skill_name)
+
         if skill:
             self.repository.increment_skill(skill)
         else:
             skill = Skill(skill_name)
             self.repository.add_skill(skill)
+        return True
 
     # Method to find a skill
     def find_skill(self, skill_name: str) -> Skill:
@@ -25,29 +31,28 @@ class SkillsService:
         return None
     
     # Method to decrement a skill
-    def decrement_skill(self, skill_name: str) -> str:
+    def decrement_skill(self, skill_name: str) -> bool:
         skill = self.repository.get_skill(skill_name)
-        if skill:
+        if not skill:
+            return False
+        if skill and skill.get_count() > 1:
             self.repository.decrement_skill(skill)
-            return f"Skill decremented: {skill}"
-        else:
-            return "Skill not found"
-        
+        elif skill:
+            self.repository.remove_skill(skill)
+        return True
+
     # Method to remove a skill
-    def remove_skill(self, skill_name: str) -> str:
+    def remove_skill(self, skill_name: str) -> bool:
         skill = self.repository.get_skill(skill_name)
         if skill:
             self.repository.remove_skill(skill)
-            print(f"Skill removed: {skill}")
-        else:
-            print("Skill not found")
+            return True
+        return False
 
     # Method to get all skills
-    def get_all_skills(self) -> None:
+    def get_all_skills(self) -> List[Skill]:
         skills = self.repository.get_all_skills()
-        print("All skills:")
-        for skill in skills:
-            print(skill)
+        return skills
 
     # Method to quit the application
     def quit(self) -> None:

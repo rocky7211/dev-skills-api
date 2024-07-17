@@ -26,6 +26,9 @@ class Skill():
     def decrement_count (self) -> None:
         self.count -= 1
 
+    def to_dict(self) -> dict:
+        return {"name": self.name, "count": self.count}
+    
     def __eq__(self, other) -> bool:
         if not isinstance(other, Skill):
             return False
