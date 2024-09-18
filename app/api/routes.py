@@ -20,7 +20,7 @@ def configure_routes(app):
         return 201 if added else (f'Unable to add skill. Skill cannot be empty', 403)
 
     # New route to remove a skill
-    @app.route('/api/skills/remove_skill/<string:skill_name>', methods=['DELETE'])
+    @app.route('/api/skills/remove_skill/<string:skill_name>', methods=['PUT'])
     def remove_skill(skill_name):
         skills_service = current_app.config['skills_service']
         removed = skills_service.remove_skill(skill_name)
@@ -34,7 +34,7 @@ def configure_routes(app):
         return 204 if decremented else (f'Unable to decrement skill. {skill_name} not found.', 404)
 
     # New route to get a single skill
-    @app.route('/api/skills/get_skill/<string:skill_name>', methods=['GET'])
+    @app.route('/api/skills/get_skill/<string:skill_name>', methods=['PUT'])
     def get_skill(skill_name):
         skills_service = current_app.config['skills_service']
         skill = skills_service.find_skill(skill_name)
