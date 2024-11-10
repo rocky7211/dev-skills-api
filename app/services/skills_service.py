@@ -1,4 +1,4 @@
-from infrastructure.db_repository import SQLiteRepository
+from infrastructure.db_repository import PostgreSQLRepository
 from domain.skill import Skill
 from typing import List
 
@@ -6,7 +6,7 @@ from typing import List
 class SkillsService:
 
     # Constructor
-    def __init__(self, repository: SQLiteRepository) -> None:
+    def __init__(self, repository: PostgreSQLRepository) -> None:
         self.repository = repository
 
     # Method to display the menu

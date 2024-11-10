@@ -1,16 +1,16 @@
 from domain.skill import Skill
 from typing import List
-import sqlite3
+import psycopg2
 
 # This is the interface for using the SQLite repository
-class SQLiteRepository:
+class PostgreSQLRepository:
     # Create the database
-    def __init__(self, db_path='skills_database.db') -> None:
-        self.db_path = db_path
+    def __init__(self, db_url) -> None:
+        self.db_url = db_url
         self.create_skill_table()
 
     def create_skill_table(self) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             CREATE TABLE IF NOT EXISTS skills (
@@ -24,7 +24,7 @@ class SQLiteRepository:
         conn.close()
 
     def add_skill(self, skill: Skill) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             INSERT INTO skills (skill_name, count) VALUES (?, ?)
@@ -33,7 +33,7 @@ class SQLiteRepository:
         conn.close()
     
     def get_all_skills(self) -> List[Skill]:    
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             SELECT skill_name, count FROM skills
@@ -44,7 +44,7 @@ class SQLiteRepository:
         return skills
 
     def remove_skill(self, skill: Skill) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             DELETE FROM skills WHERE skill_name = ?
@@ -53,7 +53,7 @@ class SQLiteRepository:
         conn.close()
 
     def decrement_skill(self, skill: Skill) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             UPDATE skills SET count = count - 1 WHERE skill_name = ?
@@ -62,7 +62,7 @@ class SQLiteRepository:
         conn.close()
 
     def increment_skill(self, skill: Skill) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             UPDATE skills SET count = count + 1 WHERE skill_name = ?
@@ -71,7 +71,7 @@ class SQLiteRepository:
         conn.close()
 
     def get_skill(self, skill_name: str) -> Skill:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             SELECT skill_name, count FROM skills WHERE skill_name = ?
@@ -82,7 +82,7 @@ class SQLiteRepository:
 
  
     def drop_skill_table(self) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             DROP TABLE IF EXISTS skills
@@ -91,7 +91,7 @@ class SQLiteRepository:
         conn.close()
     
     def drop_database(self) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         c = conn.cursor()
         c.execute('''
             DROP DATABASE IF EXISTS skills_database
@@ -100,5 +100,5 @@ class SQLiteRepository:
         conn.close()
     
     def close_connection(self) -> None:
-        conn = sqlite3.connect(self.db_path)
+        conn = psycopg2.connect(self.db_url)
         conn.close()
