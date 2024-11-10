@@ -9,7 +9,7 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'app')))
 
 import app.services.skills_service as service
-from api.routes import configure_routes
+from app.api.routes import configure_routes
 from app.infrastructure.db_repository import SQLiteRepository
 from flask import Flask
 from flask_cors import CORS
@@ -28,4 +28,4 @@ if __name__ == "__main__":
     app.config['skills_service'] = skills_service
 
     # Start the Flask app
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=False)
