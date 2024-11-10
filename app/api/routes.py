@@ -34,7 +34,7 @@ def configure_routes(app):
         return 204 if decremented else (f'Unable to decrement skill. {skill_name} not found.', 404)
 
     # New route to get a single skill
-    @app.route('/api/skills/get_skill/<string:skill_name>', methods=['PUT'])
+    @app.route('/api/skills/get_skill/<string:skill_name>', methods=['GET'])
     def get_skill(skill_name):
         skills_service = current_app.config['skills_service']
         skill = skills_service.find_skill(skill_name)
