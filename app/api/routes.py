@@ -1,4 +1,4 @@
-from flask import jsonify, current_app
+from flask import jsonify, current_app, request
 from services.skills_service import SkillsService
 
 # Function to configure the routes
@@ -13,8 +13,9 @@ def configure_routes(app):
         return jsonify(skills_json)
 
     # New route to add a skill
-    @app.route('/api/skills/add_skill/<string:skill_name>', methods=['POST'])
-    def add_skill(skill_name):
+    @app.route('/api/skills/add_skill/', methods=['POST'])
+    def add_skill():
+        skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
         added = skills_service.add_skill(skill_name)
         return 201 if added else (f'Unable to add skill. Skill cannot be empty', 403)
