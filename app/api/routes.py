@@ -17,7 +17,11 @@ def configure_routes(app):
     def add_skill(skill_name):
         skills_service = current_app.config['skills_service']
         added = skills_service.add_skill(skill_name)
-        return 201 if added else (f'Unable to add skill. Skill cannot be empty', 403)
+        if added:
+            return jsonify({'success': 'Skill added successfully'}), 201
+        else:
+            return jsonify({'error': 'Unable to add skill. Skill cannot be empty'}), 403
+
 
     # New route to remove a skill
     @app.route('/api/skills/remove_skill/<string:skill_name>', methods=['PUT'])
