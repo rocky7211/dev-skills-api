@@ -1,40 +1,111 @@
-# Developer Skills Tracker
+# Developer Skills API
 
-This Python application is designed to maintain and manage a list of developer skills along with their occurrence counts in a database. It supports adding, removing, displaying, and searching for skills through both a command-line interface and a Flask API. The application performs the following operations:
+## Overview
+The Developer Skills API is a web API built with Python, that allows users to track and manage their skills. The API uses Python with Flask for the backend, and PostgreSQL for the database, which is connected via an internal private network on Render. Both the API and Database are hosted on Render, to allow for this private connection.
 
-1. Checks if a database named `skills.db` exists. If it does, it connects to the database and loads the skills and their counts into a table. If the database does not exist, it creates the `skills.db` database and initializes a table for storing skills.
+Currently this implementation  only has a backend and there is no frontend implementation as of yet. There are plans to add API frontend. [ My Portfolio website](https://jaredmcdowall.me/) has a basic frontend implementation in React.
 
-2. Introduces a `MenuHandler` class that manages the command-line menu options for the user to select such as adding a skill, removing a skill, decrementing a skill, displaying all skills, or searching for a specific skill. For each action, the application performs the corresponding operations:
-    - **Add a Skill**: Searches the table for the entered skill. If found, increments the count; otherwise, adds the skill with a count of 1.
-    - **Search for a Skill**: Searches for and displays the count of the specified skill.
-    - **Decrement a Skill**: Decrements the skill's count by 1 and removes it if `count = 0`.
-    - **Remove a Skill**: Removes the specified skill from the table if it exists.
-    - **Display All Skills**: Shows all skills and their counts.
-    - **Exit**: Displays an exit message, ensures all changes are committed to the database, closes the database connection, and quits the program.
+## API Features
+- **POST**: Add new skill
+- **GET**: Get all skills
+- **DELETE**: Remove a skill
+- **PUT**: Decrement the count of a skill 
+- **GET**: Get details of a specific skill
 
-3. Incorporates a Flask API that allows users or systems to perform operations such as adding, removing, decrementing, displaying, and searching for skills via HTTP requests. This extends the application's functionality to be accessible programmatically and through web services.
+## Setup and Installation
 
-4. Updates the `skills.db` database with the current list of skills and their counts after any modification.
+### Prerequisites
+- Python 3.11
+- PostgreSQL
+- pip (Python package installer)
 
-The skills and their counts are stored in the `skills.db` database in a table with columns `skill` and `count`.
+There is no local version of this API. This implementation uses a internal private connection, so the database integration will not work unless you change the database connection.
 
-#### Requirements:
-- Python 3.x
-- SQLite3 (comes bundled with Python 3.x)
-- Flask (for the API)
+In order to change databse connection go to `main.py` in root directory. Then input your own database address, ensure the databse will allow all connections.
 
-#### Recent Updates:
-- **Database Integration**: Transitioned from using a text file (`skills.txt`) to a SQLite database (`skills.db`) for storing skills and their counts. This enhances data integrity and allows for more complex queries.
-- **Test Cases Added**: Introduced test cases in `test_skillsMethods.py` to ensure the accuracy and reliability of the application's functionalities. These tests cover all the main operations such as adding, removing, decrementing, and searching for skills, now with database integration.
-- **Error Handling**: Improved error handling across the application to provide clearer messages and prevent the application from exiting unexpectedly during runtime.
-- **Flask API Integration**: Added a Flask API to allow for programmatic access to the application's functionalities, enabling operations like adding, removing, decrementing, and searching for skills through HTTP requests.
-- **MenuHandler Class**: Introduced a new `MenuHandler` class to manage command-line interactions, streamlining the process of performing operations through the command-line interface.
+```python
+# Entry point of the application
+if __name__ == "__main__":
+    # Connect to the PostgreSQL database via internal connection on Render
+    # Create an instance of the SkillsService class
+    db_url = ""
+    skills_service = service.SkillsService(PostgreSQLRepository(db_url))
+```
 
-#### Usage:
-1. Ensure Python 3.x and Flask are installed on your system.
-2. Place the application files in a directory of your choice.
-3. Run the application using the command `python main.py` for command-line interactions or `flask run` to start the Flask API server.
-4. Currently, upon running `python main.py` this will initiate both the Flask API and CLI program. This will change later.
-4. Follow the on-screen prompts to manage skills through the command-line interface. The application allows adding, removing, displaying, and searching for skills. It will update the counts, save them to `skills.db`.
-5. To interact with the application through the Flask API, send HTTP requests to the appropriate endpoints for adding, removing, decrementing, displaying, and searching for skills.
-6. To run test cases, type `python3 -m unittest`.
+This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
+
+```python
+ # Start the Flask app
+    app.run(debug=False, host='0.0.0.0')
+```
+
+### Installation Steps
+1. **Clone the repository:**
+    ```sh
+    git clone https://github.com/yourusername/developer-skills-tracker.git
+    cd developer-skills-tracker
+    ```
+
+2. **Create a virtual environment and activate it:**
+    ```sh
+    python -m venv venv
+    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+    ```
+
+3. **Install the required packages:**
+    ```sh
+    pip install -r requirements.txt
+    ```
+
+4. **Set up the PostgreSQL database:**
+    - Create a new PostgreSQL database.
+    - Update the `db_url` in `main.py` with your PostgreSQL database connection string.
+
+5. **Run the application:**
+    ```sh
+    python main.py
+    ```
+
+## API Endpoints
+
+### Get All Skills
+- **URL:** `/api/skills/get_all_skills`
+- **Method:** `GET`
+- **Response:**
+    ```json
+    [
+        {
+            "skill_name": "Python",
+            "count": 5
+        },
+        ...
+    ]
+    ```
+
+### Add a Skill
+- **URL:** `/api/skills/add_skill/<string:skill_name>`
+- **Method:** `POST`
+- **Response:**
+    - Success: `201 Created`
+    - Error: `400 Bad Request` or `403 Forbidden`
+
+### Remove a Skill
+- **URL:** `/api/skills/remove_skill/<string:skill_name>`
+- **Method:** `PUT`
+- **Response:**
+    - Success: `204 No Content`
+    - Error: `404 Not Found`
+
+### Decrement a Skill
+- **URL:** `/api/skills/decrement_skill/<string:skill_name>`
+- **Method:** `PUT`
+- **Response:**
+    - Success: `204 No Content`
+    - Error: `404 Not Found`
+
+### Get a Specific Skill
+- **URL:** `/api/skills/get_skill/<string:skill_name>`
+- **Method:** `GET`
+- **Response:**
+    - Success: `200 OK`
+    - Error: `404 Not Found`
