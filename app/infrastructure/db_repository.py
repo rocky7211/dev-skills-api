@@ -26,7 +26,7 @@ class PostgreSQLRepository:
         with psycopg.connect(self.db_url) as conn:
             c = conn.cursor()
             c.execute('''
-                INSERT INTO skills (skill_name, count) VALUES (?, ?)
+                INSERT INTO skills (skill_name, count) VALUES (%s, %s)
             ''', (skill.get_name(), skill.get_count(),))
             conn.commit()
     
@@ -36,15 +36,14 @@ class PostgreSQLRepository:
             c.execute('''
                 SELECT skill_name, count FROM skills
             ''')
-            skills = [Skill(row[0], row[1]) for row in c.fetchall()]
-            conn.commit()    
+            skills = [Skill(row[0], row[1]) for row in c.fetchall()]  
         return skills
 
     def remove_skill(self, skill: Skill) -> None:
         with psycopg.connect(self.db_url) as conn:
             c = conn.cursor()
             c.execute('''
-                DELETE FROM skills WHERE skill_name = ?
+                DELETE FROM skills WHERE skill_name = %s
             ''', (skill.get_name(),))
             conn.commit()
 
@@ -52,7 +51,7 @@ class PostgreSQLRepository:
         with psycopg.connect(self.db_url) as conn:
             c = conn.cursor()
             c.execute('''
-                UPDATE skills SET count = count - 1 WHERE skill_name = ?
+                UPDATE skills SET count = count - 1 WHERE skill_name = %s
             ''', (skill.get_name(),))
             conn.commit()
 
@@ -60,7 +59,7 @@ class PostgreSQLRepository:
         with psycopg.connect(self.db_url) as conn:
             c = conn.cursor()
             c.execute('''
-                UPDATE skills SET count = count + 1 WHERE skill_name = ?
+                UPDATE skills SET count = count + 1 WHERE skill_name = %s
             ''', (skill.get_name(),))
             conn.commit()
 
@@ -68,10 +67,9 @@ class PostgreSQLRepository:
         with psycopg.connect(self.db_url) as conn:
             c = conn.cursor()
             c.execute('''
-                SELECT skill_name, count FROM skills WHERE skill_name = ?
+                SELECT skill_name, count FROM skills WHERE skill_name = %s
             ''', (skill_name,))
             skill = Skill(row[0], row[1]) if (row := c.fetchone()) else None
-            conn.commit()
         return skill
  
     def drop_skill_table(self) -> None:
@@ -86,7 +84,7 @@ class PostgreSQLRepository:
         with psycopg.connect(self.db_url) as conn:
             c = conn.cursor()
             c.execute('''
-                DROP DATABASE IF EXISTS skills_database
+                DROP DATABASE IF EXISTS skills_postgresql_db
             ''')
             conn.commit()
     
