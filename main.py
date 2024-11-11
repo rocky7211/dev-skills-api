@@ -23,6 +23,7 @@ CORS(app)
 
 # Entry point of the application
 if __name__ == "__main__":
+    # Connect to the PostgreSQL database via internal connection on Render
     # Create an instance of the SkillsService class
     db_url = "postgresql://skills_postgresql_db_user:WDNho9dNStOKpckqO3zcbhW36uqtkJIl@dpg-csoij668ii6s73961280-a/skills_postgresql_db"
     skills_service = service.SkillsService(PostgreSQLRepository(db_url))
