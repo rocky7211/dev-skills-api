@@ -25,22 +25,31 @@ def configure_routes(app):
 
 
     # New route to remove a skill
-    @app.route('/api/skills/remove_skill/<string:skill_name>', methods=['PUT'])
+    @app.route('/api/skills/remove_skill', methods=['PUT'])
     def remove_skill(skill_name):
+        skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
         removed = skills_service.remove_skill(skill_name)
-        return 204 if removed else (f'Unable to remove skill. {skill_name} not found.', 404)
-
+        if removed:
+            return jsonify({'success': 'Skill removed successfully'}), 204
+        else:
+            return jsonify({'error': 'Unable to remove skill. Skill not found'}), 404
+        
     # New route to decrement a skill
-    @app.route('/api/skills/decrement_skill/<string:skill_name>', methods=['PUT'])
+    @app.route('/api/skills/decrement_skill', methods=['PUT'])
     def decrement_skill(skill_name):
+        skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
         decremented = skills_service.decrement_skill(skill_name)
-        return 204 if decremented else (f'Unable to decrement skill. {skill_name} not found.', 404)
-
+        if decremented:
+            return jsonify({'success': 'Skill decremented successfully'}), 200
+        else:
+            return jsonify({'error': 'Unable to decrement skill. Skill not found'}), 404
+        
     # New route to get a single skill
-    @app.route('/api/skills/get_skill/<string:skill_name>', methods=['GET'])
-    def get_skill(skill_name):
+    @app.route('/api/skills/get_skill', methods=['GET'])
+    def get_skill():
+        skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
         skill = skills_service.find_skill(skill_name)
         return jsonify(skill.to_dict()) if skill else (f'{skill_name} not found.', 404)
