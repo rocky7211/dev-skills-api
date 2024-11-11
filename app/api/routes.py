@@ -25,7 +25,7 @@ def configure_routes(app):
 
     # New route to remove a skill
     @app.route('/api/skills/remove_skill', methods=['DELETE'])
-    def remove_skill(skill_name):
+    def remove_skill():
         skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
         removed = skills_service.remove_skill(skill_name)
@@ -36,7 +36,7 @@ def configure_routes(app):
         
     # New route to decrement a skill
     @app.route('/api/skills/decrement_skill', methods=['PUT'])
-    def decrement_skill(skill_name):
+    def decrement_skill():
         skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
         decremented = skills_service.decrement_skill(skill_name)
