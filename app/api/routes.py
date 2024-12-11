@@ -5,7 +5,7 @@ from services.skills_service import SkillsService
 def configure_routes(app):
 
     # New route to get all skills
-    @app.route('/api/skills/get_all_skills', methods=['GET'])
+    @app.route('/skills/get_all_skills', methods=['GET'])
     def get_all_skills():
         skills_service = current_app.config['skills_service']
         skills = skills_service.get_all_skills()
@@ -13,7 +13,7 @@ def configure_routes(app):
         return jsonify(skills_json)
 
     # New route to add a skill
-    @app.route('/api/skills/add_skill', methods=['POST'])
+    @app.route('/skills/add_skill', methods=['POST'])
     def add_skill():
         skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
@@ -24,7 +24,7 @@ def configure_routes(app):
             return jsonify({'error': 'Unable to add skill. Skill cannot be empty'}), 403
 
     # New route to remove a skill
-    @app.route('/api/skills/remove_skill', methods=['DELETE'])
+    @app.route('/skills/remove_skill', methods=['DELETE'])
     def remove_skill():
         skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
@@ -35,7 +35,7 @@ def configure_routes(app):
             return jsonify({'error': 'Unable to remove skill. Skill not found'}), 404
         
     # New route to decrement a skill
-    @app.route('/api/skills/decrement_skill', methods=['PUT'])
+    @app.route('/skills/decrement_skill', methods=['PUT'])
     def decrement_skill():
         skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
@@ -46,7 +46,7 @@ def configure_routes(app):
             return jsonify({'error': 'Unable to decrement skill. Skill not found'}), 404
         
     # New route to get a single skill
-    @app.route('/api/skills/get_skill', methods=['GET'])
+    @app.route('/skills/get_skill', methods=['GET'])
     def get_skill():
         skill_name = request.json.get('skill_name')
         skills_service = current_app.config['skills_service']
