@@ -1,8 +1,12 @@
-from flask import jsonify, current_app, request
+from flask import jsonify, current_app, request, render_template
 from services.skills_service import SkillsService
 
 # Function to configure the routes
 def configure_routes(app):
+
+    @app.route('/')
+    def root():
+        return render_template("index.html")
 
     # New route to get all skills
     @app.route('/skills/get_all_skills', methods=['GET'])
