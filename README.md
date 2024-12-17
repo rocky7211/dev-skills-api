@@ -3,7 +3,7 @@
 ## Overview
 The Developer Skills API is a web API built with Python, that allows users to track and manage their skills. The API uses Python with Flask for the backend, and PostgreSQL for the database, which is connected via an internal private network on Render. Both the API and Database are hosted on Render, to allow for this private connection.
 
-Currently this implementation  only has a backend and there is no frontend implementation as of yet. There are plans to add API frontend. [ My Portfolio website](https://jaredmcdowall.me/) has a basic frontend implementation in React.
+Currently this implementation only has a backend and there is no frontend implementation as of yet. There are plans to add API frontend. [My Portfolio website](https://jaredmcdowall.me/) has a basic frontend implementation in React. [Api website here](https://api.jaredmcdowall.me) although a frontend solution is yet to come, this is the domain that hosts the api that talk directly to render.
 
 ## API Features
 - **POST**: Add new skill
@@ -28,7 +28,7 @@ In order to change databse connection go to `main.py` in root directory. Then in
 if __name__ == "__main__":
     # Connect to the PostgreSQL database via internal connection on Render
     # Create an instance of the SkillsService class
-    db_url = ""
+    db_url = "" # connect to your own db
     skills_service = service.SkillsService(PostgreSQLRepository(db_url))
 ```
 
@@ -36,14 +36,14 @@ This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
 
 ```python
  # Start the Flask app
-    app.run(debug=False, host='0.0.0.0')
+    app.run(debug=False, host='0.0.0.0') # required for render
 ```
 
 ### Installation Steps
 1. **Clone the repository:**
     ```sh
-    git clone https://github.com/yourusername/developer-skills-tracker.git
-    cd developer-skills-tracker
+    git clone https://github.com/rocky7211/dev-skills-api.git
+    cd dev-skills-api
     ```
 
 2. **Create a virtual environment and activate it:**
@@ -69,7 +69,7 @@ This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
 ## API Endpoints
 
 ### Get All Skills
-- **URL:** `/api/skills/get_all_skills`
+- **URL:** `/skills/get_all_skills`
 - **Method:** `GET`
 - **Response:**
     ```json
@@ -83,28 +83,28 @@ This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
     ```
 
 ### Add a Skill
-- **URL:** `/api/skills/add_skill/<string:skill_name>`
+- **URL:** `/skills/add_skill`
 - **Method:** `POST`
 - **Response:**
     - Success: `201 Created`
     - Error: `400 Bad Request` or `403 Forbidden`
 
 ### Remove a Skill
-- **URL:** `/api/skills/remove_skill/<string:skill_name>`
+- **URL:** `/skills/remove_skill`
 - **Method:** `PUT`
 - **Response:**
     - Success: `204 No Content`
     - Error: `404 Not Found`
 
 ### Decrement a Skill
-- **URL:** `/api/skills/decrement_skill/<string:skill_name>`
+- **URL:** `/skills/decrement_skill`
 - **Method:** `PUT`
 - **Response:**
     - Success: `204 No Content`
     - Error: `404 Not Found`
 
 ### Get a Specific Skill
-- **URL:** `/api/skills/get_skill/<string:skill_name>`
+- **URL:** `/skills/get_skill/skill_name?={skill_name}`
 - **Method:** `GET`
 - **Response:**
     - Success: `200 OK`
