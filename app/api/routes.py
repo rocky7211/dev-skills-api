@@ -52,7 +52,7 @@ def configure_routes(app):
     # New route to get a single skill
     @app.route('/skills/get_skill', methods=['GET'])
     def get_skill():
-        skill_name = request.json.get('skill_name')
+        skill_name = request.args.get('skill_name')
         skills_service = current_app.config['skills_service']
         skill = skills_service.find_skill(skill_name)
         return jsonify(skill.to_dict()) if skill else (f'{skill_name} not found.', 404)
