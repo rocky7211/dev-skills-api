@@ -104,7 +104,7 @@ This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
     - Error: `404 Not Found`
 
 ### Get a Specific Skill
-- **URL:** `/skills/get_skill/skill_name?={skill_name}`
+- **URL:** `/skills/get_skill?skill_name={skill_name}`
 - **Method:** `GET`
 - **Response:**
     - Success: `200 OK`
