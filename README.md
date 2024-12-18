@@ -106,6 +106,10 @@ This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
 ### Get a Specific Skill
 - **URL:** `/skills/get_skill?skill_name={skill_name}`
 - **Method:** `GET`
-- **Response:**
-    - Success: `200 OK`
-    - Error: `404 Not Found`
+- **Example Response:**
+```json
+        {
+            "skill_name": "Python",
+            "count": 5
+        }
+```
