@@ -1,19 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+        </style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Developer Skills API</title>
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <title>API - JM</title>
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Montserrat, Arial, sans-serif;
+            background:#08314A;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .splash-container {
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        a {
+            color: #FD00E3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #FD00E3;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Developer Skills API</h1>
-    <p>This is the root page of the Developer Skills API. User interface coming soon!</p>
-
-    <h2>Usage</h2>
-    <p>Currently, there is no UI implementation beyond the portfolio website - there are plans to add Swagger UI in future.</p>
-
-    <p>To access the APIs, please visit my <a href="https://jaredmcdowall.me">portfolio website</a></p>
-
-    <p>Documentation is available on the <a href="https://github.com/rocky7211/dev-skills-api">GitHub repository</a></p>
+    <div class="splash-container">
+        <h1>Welcome to the Developer Skills API</h1>
+        <p>This is the splash screen for the API domain, soon there will be direct UI interaction with the API on this page</p>
+        <p>Currently, there is no UI implementation beyond the portfolio website - there are plans to add Swagger UI in future.</p>
+        <p>To access the APIs, please visit my <a href="https://jaredmcdowall.me">portfolio website</a></p>
+        <p>Documentation is available on the <a href="https://github.com/rocky7211/dev-skills-api">GitHub repository</a></p>
+        <a href="https://jaredmcdowall.me" class="button">Visit Portfolio</a>
+    </div>
 </body>
 </html>
