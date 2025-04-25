@@ -6,8 +6,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <title>API - JM</title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
+    <title>Jared's API</title>
+
+    <body>
+        <div class="splash-container">
+            <img src="{{ url_for('static', filename='assets/jm-logo.png') }}" alt="Logo" style="width: 150px; height: auto; margin-bottom: 1rem;">
+            <h1>Welcome to the Developer Skills API</h1>
+            <p>This is the splash screen for the API domain, soon there will be direct UI interaction with the API on this page</p>
+            <p>Currently, there is no UI implementation beyond the portfolio website - there are plans to add Swagger UI in future.</p>
+            <p>To access the APIs, please visit my <a href="https://jaredmcdowall.me">portfolio website</a></p>
+            <p>Documentation is available on the <a href="https://github.com/rocky7211/dev-skills-api">GitHub repository</a></p>
+            <a href="https://jaredmcdowall.me" class="button">Visit Portfolio</a>
+        </div>
+    </body>
 
     <style>
         /* General Reset */
@@ -85,16 +97,28 @@
                 transform: translateY(0);
             }
         }
+        /* Responsive Styles */
+        @media (max-width: 600px) {
+            .splash-container {
+                padding: 1rem;
+                max-width: 98vw;
+            }
+            h1 {
+                font-size: 1.4rem;
+            }
+            p {
+                font-size: 0.95rem;
+            }
+            .button {
+                width: 100%;
+                font-size: 1rem;
+                padding: 0.7rem 0;
+            }
+            .splash-container img {
+                width: 80px;
+            }
+        }
+
     </style>
 </head>
-<body>
-    <div class="splash-container">
-        <h1>Welcome to the Developer Skills API</h1>
-        <p>This is the splash screen for the API domain, soon there will be direct UI interaction with the API on this page</p>
-        <p>Currently, there is no UI implementation beyond the portfolio website - there are plans to add Swagger UI in future.</p>
-        <p>To access the APIs, please visit my <a href="https://jaredmcdowall.me">portfolio website</a></p>
-        <p>Documentation is available on the <a href="https://github.com/rocky7211/dev-skills-api">GitHub repository</a></p>
-        <a href="https://jaredmcdowall.me" class="button">Visit Portfolio</a>
-    </div>
-</body>
 </html>
