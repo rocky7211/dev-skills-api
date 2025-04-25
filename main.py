@@ -23,17 +23,12 @@ CORS(app)
 
 # Entry point of the application
 if __name__ == "__main__":
-    # Connect to the PostgreSQL database via internal connection on Render
-    # Create an instance of the SkillsService class
-    db_url = "postgresql://skills_postgresql_db_user:WDNho9dNStOKpckqO3zcbhW36uqtkJIl@dpg-csoij668ii6s73961280-a/skills_postgresql_db"
+    # Connect to the PostgreSQL database
+    db_url = os.environ.get("DATABASE_URL")
+    if db_url is None:
+        raise ValueError("DATABASE_URL environment variable not set")
     skills_service = service.SkillsService(PostgreSQLRepository(db_url))
     app.config['skills_service'] = skills_service
 
     # Start the Flask app
     app.run(debug=False, host='0.0.0.0')
-
-    # Internal connection to the PostgreSQL database
-    # db_url = "postgresql://skills_postgresql_db_user:WDNho9dNStOKpckqO3zcbhW36uqtkJIl@dpg-csoij668ii6s73961280-a/skills_postgresql_db"
-
-    # External connection to the PostgreSQL database
-    # db_url = postgresql://skills_postgresql_db_user:WDNho9dNStOKpckqO3zcbhW36uqtkJIl@dpg-csoij668ii6s73961280-a.oregon-postgres.render.com/skills_postgresql_db
