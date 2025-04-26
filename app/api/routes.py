@@ -1,4 +1,5 @@
 from flask import jsonify, current_app, request, render_template
+import html
 from services.skills_service import SkillsService
 
 # Function to configure the routes
@@ -55,4 +56,4 @@ def configure_routes(app):
         skill_name = request.args.get('skill_name')
         skills_service = current_app.config['skills_service']
         skill = skills_service.find_skill(skill_name)
-        return jsonify(skill.to_dict()) if skill else (f'{skill_name} not found.', 404)
+        return jsonify(skill.to_dict()) if skill else (f'{html.escape(skill_name)} not found.', 404)
