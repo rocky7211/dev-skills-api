@@ -19,20 +19,18 @@ Currently this implementation only has a backend and there is no frontend implem
 - PostgreSQL
 - pip (Python package installer)
 
-There is no local version of this API. This implementation uses a internal private connection, so the database integration will not work unless you change the database connection.
-
-In order to change databse connection go to `main.py` in root directory. Then input your own database address, ensure the databse will allow all connections.
+There is no local version of this API. The live program uses an internal private connection to the database. You must connect to your own database via the `.env` file to import the database secret into the environment variable defined in `main.py`.
 
 ```python
 # Entry point of the application
 if __name__ == "__main__":
-    # Connect to the PostgreSQL database via internal connection on Render
-    # Create an instance of the SkillsService class
-    db_url = "" # connect to your own db
+    # Connect to the PostgreSQL database set your own environment variable in a .env file
+    db_url = os.environ.get("DATABASE_URL")
+    if db_url is None:
+        raise ValueError("DATABASE_URL environment variable not set")
     skills_service = service.SkillsService(PostgreSQLRepository(db_url))
 ```
-
-This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
+This API is bound to `0.0.0.0` for Render, change if needed in `main.py`.
 
 ```python
  # Start the Flask app
@@ -59,7 +57,11 @@ This API is bound to `0.0.0.0` for Render, change if needed in `main.py`
 
 4. **Set up the PostgreSQL database:**
     - Create a new PostgreSQL database.
-    - Update the `db_url` in `main.py` with your PostgreSQL database connection string.
+    - Update the `DATABASE_URL` environment variable in `main.py` with your PostgreSQL database secret in a `.env` file.
+    ```sh
+    #.env file
+    DATABASE_URL = "enter database secret"
+    ```
 
 5. **Run the application:**
     ```sh
